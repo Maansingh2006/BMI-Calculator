@@ -96,3 +96,16 @@ input-with-unit input {
     font-weight: 500;
     transition: background-color 0.2s;
 }
+#calculate-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.hidden {
+    display: none;
+}
+
+.result-container {
+    margin-top: 2rem;
+    display: grid;
+    gap: 2rem;
+}
