@@ -23,3 +23,32 @@
                     </div>
                 </div>
                 <div class="input-field">
+                    label for="height">Height</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="height" placeholder="Enter your height">
+                        <select id="height-unit">
+                            <option value="cm">cm</option>
+                            <option value="m">m</option>
+                            <option value="ft">ft</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="calculate-btn">Calculate BMI</button>
+            </div>
+             <div class="result-container hidden" id="result-container">
+                <div class="result-card">
+                    <h2>Your BMI Result</h2>
+                    <div class="bmi-value" id="bmi-value">0.0</div>
+                    <div class="bmi-category" id="bmi-category">Normal</div>
+                    <div class="bmi-description" id="bmi-description">You have a normal body weight.</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="bmi-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
