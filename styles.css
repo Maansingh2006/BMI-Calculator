@@ -47,3 +47,25 @@ h1 {
     overflow: hidden;
     padding: 2rem;
 }
+
+.input-group {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-field label {
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.input-with-unit {
+    display: flex;
+    gap: 0.5rem;
+}
