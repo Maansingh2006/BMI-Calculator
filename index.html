@@ -12,6 +12,8 @@
         <h1>BMI Calculator</h1>
         <div class="calculator">
             <div class="input-group">
+
+                <!-- Weight Input -->
                 <div class="input-field">
                     <label for="weight">Weight</label>
                     <div class="input-with-unit">
@@ -22,8 +24,10 @@
                         </select>
                     </div>
                 </div>
+
+                <!-- Height Input -->
                 <div class="input-field">
-                    label for="height">Height</label>
+                    <label for="height">Height</label>
                     <div class="input-with-unit">
                         <input type="number" id="height" placeholder="Enter your height">
                         <select id="height-unit">
@@ -33,15 +37,38 @@
                         </select>
                     </div>
                 </div>
+
+                <!-- Age Input -->
+                <div class="input-field">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" placeholder="Enter your age">
+                </div>
+
+                <!-- Gender Input -->
+                <div class="input-field">
+                    <label for="gender">Gender</label>
+                    <select id="gender">
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
                 <button id="calculate-btn">Calculate BMI</button>
             </div>
-             <div class="result-container hidden" id="result-container">
+
+            <!-- Results Section -->
+            <div class="result-container hidden" id="result-container">
                 <div class="result-card">
                     <h2>Your BMI Result</h2>
                     <div class="bmi-value" id="bmi-value">0.0</div>
                     <div class="bmi-category" id="bmi-category">Normal</div>
                     <div class="bmi-description" id="bmi-description">You have a normal body weight.</div>
+                    <div class="bmi-tip" id="bmi-tip"></div> <!-- Health Tip -->
                 </div>
+
+                <!-- Chart Section -->
                 <div class="chart-container">
                     <canvas id="bmi-chart"></canvas>
                 </div>
@@ -51,4 +78,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
 
