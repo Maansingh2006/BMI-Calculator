@@ -122,3 +122,15 @@ input-with-unit input {
     text-align: center;
     box-shadow: var(--shadow);
 }
+.result-card h2 {
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+}
+
+.bmi-value {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
