@@ -134,3 +134,27 @@ input-with-unit input {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
 }
+.bmi-category {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.bmi-description {
+    font-size: 1rem;
+    color: #666;
+}
+
+.chart-container {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    height: 100%;
+    min-height: 250px;
+}
+
+.underweight { color: var(--accent-color); }
+.normal { color: var(--success-color); }
+.overweight { color: var(--warning-color); }
+.obese { color: var(--danger-color); } 
