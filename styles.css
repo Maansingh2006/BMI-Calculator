@@ -40,3 +40,10 @@ h1 {
     color: var(--primary-color);
     font-weight: 600;
 }
+.calculator {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    padding: 2rem;
+}
