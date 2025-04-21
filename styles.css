@@ -69,3 +69,19 @@ h1 {
     display: flex;
     gap: 0.5rem;
 }
+input-with-unit input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+.input-with-unit select {
+    width: 70px;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background-color: white;
+    font-size: 1rem;
+}
