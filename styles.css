@@ -28,3 +28,15 @@ body {
     align-items: center;
     padding: 2rem;
 }
+
+.container {
+    width: 100%;
+    max-width: 900px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
