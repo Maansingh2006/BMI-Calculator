@@ -34,18 +34,27 @@
 
                 </div>
 
-                <!-- Height Input -->
-                <div class="input-field">
-                    <label for="height">Height</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="height" placeholder="e.g., 175" aria-label="Height">
-                        <select id="height-unit" aria-label="Height unit">
-                            <option value="cm">cm</option>
-                            <option value="m">m</option>
-                            <option value="ft">ft</option>
-                            <option value="ft-in">ft + in</option>
-                        </select>
-                    </div>
+               <!-- Height Input -->
+<div class="input-field">
+    <label for="height">Height</label>
+    <div class="input-with-unit">
+        <input type="number" id="height" placeholder="e.g., 175" aria-label="Height">
+        <select id="height-unit" aria-label="Height unit">
+            <option value="cm">cm</option>
+            <option value="m">m</option>
+            <option value="ft">ft</option>
+            <option value="ft-in">ft + in</option>
+        </select>
+    </div>
+</div>
+
+<!-- Inches Input (Shown only if ft + in is selected) -->
+<div class="input-field hidden" id="inches-field">
+    <label for="inches">Inches</label>
+    <input type="number" id="inches" placeholder="e.g., 5" aria-label="Inches">
+</div>
+
+<small class="conversion-note" id="height-note"></small>
                 </div>
 
                 <!-- Optional Inches Input -->
