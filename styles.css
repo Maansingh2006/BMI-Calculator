@@ -189,3 +189,9 @@ input-with-unit input {
 .normal { color: var(--success-color); }
 .overweight { color: var(--warning-color); }
 .obese { color: var(--danger-color); } 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
