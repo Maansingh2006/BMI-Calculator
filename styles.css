@@ -19,15 +19,6 @@
     --border-radius: 8px;
 }
 
-body {
-    background-color: #f5f9fc;
-    color: var(--dark-color);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-}
 
 .container {
     width: 100%;
