@@ -222,3 +222,16 @@ input-with-unit input {
     text-shadow: 0 0 5px var(--accent-color);
     transition: text-shadow 0.3s ease;
 }
+:root {
+    --primary-color: #4a6fa5;
+    --secondary-color: #166088;
+    --accent-color: #4baae3;
+    --light-color: #f5f9fc;
+    --dark-color: #333;
+    --danger-color: #e74c3c;
+    --warning-color: #f1c40f;
+    --success-color: #2ecc71;
+    --neutral-color: #ecf0f1;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
