@@ -129,5 +129,13 @@
 // BMI formula: weight (kg) / (height (m) * height (m))
         return weight / (height * height);
     }
-        
+    // Get BMI category
+    function getBMICategory(bmi) {
+        for (const category of bmiCategories) {
+            if (bmi >= category.range[0] && bmi < category.range[1]) {
+                return category;
+            }
+        }
+        return bmiCategories[bmiCategories.length - 1]; // Default to last category if out of range
+    }    
        
