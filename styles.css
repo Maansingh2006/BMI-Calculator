@@ -195,3 +195,24 @@ input-with-unit input {
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.chart-container {
+    background-color: #f0f4f8;  /* A light greyish-blue background */
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    height: 100%;
+    min-height: 250px;
+    border: 2px solid #ccc;  /* Soft border color */
+    color: #333;  /* Dark text color for readability */
+}
+.chart-container {
+    background-color: #f0f4f8;  /* A light greyish-blue background */
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    height: 100%;
+    min-height: 250px;
+    border: 2px solid #ccc;  /* Soft border color */
+    color: #333;  /* Dark text color for readability */
+}
+
