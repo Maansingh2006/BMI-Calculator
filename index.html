@@ -8,8 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>BMI Calculator</h1>
+    <div class="container" role="main">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" aria-label="Toggle dark mode" class="theme-toggle">🌙 Toggle Theme</button>
+
+        <h1>BMI Calculator 
+            <span class="info-icon" title="BMI = weight(kg) / height²(m)">ℹ️</span>
+        </h1>
+
         <div class="calculator">
             <div class="input-group">
 
@@ -17,8 +23,8 @@
                 <div class="input-field">
                     <label for="weight">Weight</label>
                     <div class="input-with-unit">
-                        <input type="number" id="weight" placeholder="Enter your weight">
-                        <select id="weight-unit">
+                        <input type="number" id="weight" placeholder="e.g., 70" aria-label="Weight">
+                        <select id="weight-unit" aria-label="Weight unit">
                             <option value="kg">kg</option>
                             <option value="lb">lb</option>
                         </select>
@@ -29,25 +35,32 @@
                 <div class="input-field">
                     <label for="height">Height</label>
                     <div class="input-with-unit">
-                        <input type="number" id="height" placeholder="Enter your height">
-                        <select id="height-unit">
+                        <input type="number" id="height" placeholder="e.g., 175" aria-label="Height">
+                        <select id="height-unit" aria-label="Height unit">
                             <option value="cm">cm</option>
                             <option value="m">m</option>
                             <option value="ft">ft</option>
+                            <option value="ft-in">ft + in</option>
                         </select>
                     </div>
+                </div>
+
+                <!-- Optional Inches Input -->
+                <div class="input-field hidden" id="inches-field">
+                    <label for="inches">Inches</label>
+                    <input type="number" id="inches" placeholder="e.g., 5" aria-label="Inches">
                 </div>
 
                 <!-- Age Input -->
                 <div class="input-field">
                     <label for="age">Age</label>
-                    <input type="number" id="age" placeholder="Enter your age">
+                    <input type="number" id="age" placeholder="e.g., 25" aria-label="Age">
                 </div>
 
                 <!-- Gender Input -->
                 <div class="input-field">
                     <label for="gender">Gender</label>
-                    <select id="gender">
+                    <select id="gender" aria-label="Gender">
                         <option value="" disabled selected>Select your gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -55,29 +68,56 @@
                     </select>
                 </div>
 
-                <button id="calculate-btn">Calculate BMI</button>
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button id="calculate-btn">Calculate BMI</button>
+                    <button id="reset-btn">Reset</button>
+                </div>
+
+                <!-- Alert placeholder -->
+                <div id="alert-message" role="alert" class="hidden"></div>
             </div>
 
             <!-- Results Section -->
             <div class="result-container hidden" id="result-container">
-                <div class="result-card">
+                <div class="result-card" aria-live="polite">
                     <h2>Your BMI Result</h2>
                     <div class="bmi-value" id="bmi-value">0.0</div>
                     <div class="bmi-category" id="bmi-category">Normal</div>
                     <div class="bmi-description" id="bmi-description">You have a normal body weight.</div>
                     <div class="bmi-tip" id="bmi-tip"></div> <!-- Health Tip -->
+                    <p class="bmi-note">
+                        Based on <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank">WHO classification</a>
+                    </p>
                 </div>
 
                 <!-- Chart Section -->
                 <div class="chart-container">
-                    <canvas id="bmi-chart"></canvas>
+                    <canvas id="bmi-chart" aria-label="BMI chart"></canvas>
+                </div>
+
+                <!-- History Section -->
+                <div class="history-section">
+                    <h3>Past BMI Records</h3>
+                    <ul id="bmi-history">
+                        <!-- History Items will appear here -->
+                    </ul>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 BMI Calculator. Built with ❤️</p>
+        </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
 
 
 
