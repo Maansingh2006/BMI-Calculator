@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
     const weightInput = document.getElementById('weight');
     const heightInput = document.getElementById('height');
@@ -102,5 +102,13 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.lineWidth = 2;
         ctx.strokeStyle = 'black';
         ctx.stroke();
+         // Add text label
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillStyle = 'black';
+        ctx.font = 'bold 12px Arial';
+        ctx.fillText('Your BMI: ' + bmi.toFixed(1), xPos, chartArea.top - 20);
+        ctx.restore();
+    }
         
        
