@@ -80,4 +80,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         };
-  
+   bmiChart = new Chart(ctx, config);
+    }
+    
+    // Simplified updateChartMarker without annotations
+    function updateChartMarker(bmi) {
+        if (!bmiChart) return;
+        
+        // Instead of using annotations, we'll add a text on the chart
+        const category = getBMICategory(bmi);
+        const ctx = bmiChart.ctx;
+        const chartArea = bmiChart.chartArea;
+        
+        // Draw a simple vertical line for the BMI position
+        const xPos = bmiChart.scales.x.getPixelForValue(bmi);
+        
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(xPos, chartArea.top);
+        ctx.lineTo(xPos, chartArea.bottom);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'black';
+        ctx.stroke();
+        
+       
