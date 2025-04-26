@@ -110,5 +110,19 @@
         ctx.fillText('Your BMI: ' + bmi.toFixed(1), xPos, chartArea.top - 20);
         ctx.restore();
     }
+    // Calculate BMI
+    function calculateBMI(weight, height, weightUnit, heightUnit) {
+        // Convert weight to kg if needed
+        if (weightUnit === 'lb') {
+            weight = weight * 0.453592; // lb to kg
+        }
+        
+        // Convert height to meters if needed
+        if (heightUnit === 'cm') {
+            height = height / 100; // cm to m
+        } else if (heightUnit === 'ft') {
+            height = height * 0.3048; // ft to m
+        }
+
         
        
