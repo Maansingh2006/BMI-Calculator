@@ -123,6 +123,9 @@
         } else if (heightUnit === 'ft') {
             height = height * 0.3048; // ft to m
         }
+         // BMI formula: weight (kg) / (height (m) * height (m))
+        return weight / (height * height);
+    }
 
         
        
