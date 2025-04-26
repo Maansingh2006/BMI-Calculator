@@ -137,5 +137,27 @@
             }
         }
         return bmiCategories[bmiCategories.length - 1]; // Default to last category if out of range
-    }    
+    } 
+// Display results
+    function displayResults(bmi) {
+        const category = getBMICategory(bmi);
+        
+        // Display BMI value
+        bmiValueElement.textContent = bmi.toFixed(1);
+        
+        // Display category
+        bmiCategoryElement.textContent = category.name;
+        bmiCategoryElement.className = 'bmi-category ' + category.name.toLowerCase();
+        
+        // Display description
+        bmiDescriptionElement.textContent = category.description;
+        
+        // Show results
+        resultContainer.classList.remove('hidden');
+        
+        // Initialize or update chart
+        if (!bmiChart) {
+            initChart();
+        }
+
        
