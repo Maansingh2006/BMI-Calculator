@@ -126,6 +126,8 @@
          // BMI formula: weight (kg) / (height (m) * height (m))
         return weight / (height * height);
     }
-
+// BMI formula: weight (kg) / (height (m) * height (m))
+        return weight / (height * height);
+    }
         
        
