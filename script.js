@@ -160,4 +160,30 @@
             initChart();
         }
 
+         // Add marker to chart
+        updateChartMarker(bmi);
+    }
+    
+    // Event listener for the calculate button
+    calculateBtn.addEventListener('click', function() {
+        const weight = parseFloat(weightInput.value);
+        const height = parseFloat(heightInput.value);
+        
+        // Validate inputs
+        if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+            alert('Please enter valid weight and height values.');
+            return;
+        }
+        
+        const bmi = calculateBMI(
+            weight,
+            height,
+            weightUnit.value,
+            heightUnit.value
+        );
+        
+        displayResults(bmi);
+    });
+});
+
        
