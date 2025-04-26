@@ -34,4 +34,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 borderWidth: 0
             }]
         };
+        // Chart configuration
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 40,
+                        title: {
+                            display: true,
+                            text: 'BMI Range'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Category'
+                        }
+                    }
+                },
   
