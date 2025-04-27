@@ -255,3 +255,12 @@ input-with-unit input {
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --border-radius: 8px;
 }
+.chart-container {
+    background-color: #f0f4f8;  /* A light greyish-blue background */
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    height: 100%;
+    min-height: 250px;
+    border: 2px solid #ccc;  /* Soft border color */
+    color: #333;  /* Dark text color for readability */
