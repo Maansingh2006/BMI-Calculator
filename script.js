@@ -83,14 +83,7 @@ const config = {
 };
 
 const bmiChart = new Chart(ctx, config);
-        
-       
-
-
-    
-  
-    
-    // Simplified updateChartMarker without annotations
+// Simplified updateChartMarker without annotations
     function updateChartMarker(bmi) {
         if (!bmiChart) return;
         
