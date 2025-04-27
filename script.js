@@ -9,6 +9,14 @@
     const bmiValueElement = document.getElementById('bmi-value');
     const bmiCategoryElement = document.getElementById('bmi-category');
     const bmiDescriptionElement = document.getElementById('bmi-description');
+// BMI category ranges
+const bmiCategories = [
+    { range: [0, 18.5], name: 'Underweight', color: '#4baae3', description: 'Consider gaining weight to improve your health.' },
+    { range: [18.5, 25], name: 'Normal', color: '#2ecc71', description: 'Great job! You have a healthy body weight.' },
+    { range: [25, 30], name: 'Overweight', color: '#f1c40f', description: 'Try adopting a healthier lifestyle to lose weight.' },
+    { range: [30, Infinity], name: 'Obese', color: '#e74c3c', description: 'It’s recommended to work on losing weight for better health.' }
+];
+
     
     // Chart instance
     let bmiChart = null;
