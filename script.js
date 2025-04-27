@@ -35,7 +35,6 @@
             }]
         };
         // Chart configuration
-        // Chart configuration
 const config = {
     type: 'bar',
     data,
@@ -174,7 +173,6 @@ function calculateBMI(weight, height, weightUnit, heightUnit) {
             alert('Please enter valid weight and height values.');
             return;
         }
-        
         const bmi = calculateBMI(
             weight,
             height,
