@@ -61,6 +61,28 @@ const config = {
                 }
             }
         },
+         plugins: {
+            tooltip: {
+                callbacks: {
+                    label: ({ dataIndex }) => {
+                        const labels = [
+                            'BMI < 18.5',
+                            '18.5 - 24.9',
+                            '25 - 29.9',
+                            'BMI ≥ 30'
+                        ];
+                        return labels[dataIndex] || '';
+                    }
+                }
+            },
+            legend: {
+                display: false
+            }
+        }
+    }
+};
+
+const bmiChart = new Chart(ctx, config);
         
        
 
