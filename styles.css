@@ -297,3 +297,8 @@ body {
     text-shadow: 0 0 5px var(--accent-color);
     transition: text-shadow 0.3s ease;
 }
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
