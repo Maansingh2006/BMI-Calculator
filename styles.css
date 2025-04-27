@@ -272,3 +272,10 @@ input-with-unit input {
     text-shadow: 0 0 5px var(--accent-color);
     transition: text-shadow 0.3s ease;
 }
+.calculator {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    padding: 2rem;
+}
