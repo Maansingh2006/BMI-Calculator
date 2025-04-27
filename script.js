@@ -16,9 +16,6 @@ const bmiCategories = [
     { range: [25, 30], name: 'Overweight', color: '#f1c40f', description: 'Try adopting a healthier lifestyle to lose weight.' },
     { range: [30, Infinity], name: 'Obese', color: '#e74c3c', description: 'It’s recommended to work on losing weight for better health.' }
 ];
-
-    
-    // Chart instance
     let bmiChart = null;
     
     
