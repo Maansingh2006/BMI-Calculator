@@ -279,3 +279,14 @@ input-with-unit input {
     overflow: hidden;
     padding: 2rem;
 }
+body {
+    background: linear-gradient(135deg, #f5f9fc, #dfeffc);
+    color: var(--dark-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
