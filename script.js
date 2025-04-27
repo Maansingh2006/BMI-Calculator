@@ -35,31 +35,34 @@
             }]
         };
         // Chart configuration
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        stacked: true,
-                        beginAtZero: true,
-                        max: 40,
-                        title: {
-                            display: true,
-                            text: 'BMI Range'
-                        }
-                    },
-                    y: {
-                        grid: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Category'
-                        }
-                    }
-                },
+        // Chart configuration
+const config = {
+    type: 'bar',
+    data,
+    options: {
+        indexAxis: 'y',
+        scales: {
+            x: {
+                stacked: true,
+                beginAtZero: true,
+                max: 40,
+                title: {
+                    display: true,
+                    text: 'BMI Range'
+                }
+            },
+            y: {
+                grid: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Category'
+                }
+            }
+        },
+       
+
 
     plugins: {
                     tooltip: {
