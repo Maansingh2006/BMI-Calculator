@@ -111,6 +111,17 @@
         ctx.restore();
     }
     // Calculate BMI
+        
+function calculateBMI(weight, height, weightUnit, heightUnit) {
+    // Convert weight to kg and height to meters if needed
+    weight = (weightUnit === 'lb') ? weight * 0.453592 : weight; // lb to kg
+    height = (heightUnit === 'cm') ? height / 100 :
+             (heightUnit === 'ft') ? height * 0.3048 : height;   // cm/ft to m
+    
+    // BMI formula: weight (kg) / (height (m) * height (m))
+    return weight / (height * height);
+}
+
    
          // BMI formula: weight (kg) / (height (m) * height (m))
         return weight / (height * height);
