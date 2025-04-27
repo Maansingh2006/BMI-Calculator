@@ -8,20 +8,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>BMI Calculator</h1>
-    <label for="weight">Weight (kg):</label>
-    <input type="number" id="weight"><br><br>
+    <div class="container">
+     <h1>BMI Calculator</h1>
+     <label for="weight">Weight (kg):</label>
+     <input type="number" id="weight"><br><br>
 
-    <label for="height">Height (m):</label>
-    <input type="number" id="height" step="0.01"><br><br>
+     <label for="height">Height (m):</label>
+     <input type="number" id="height" step="0.01"><br><br>
 
-    <button onclick="calculateBMI()">Calculate BMI</button>
+     <button onclick="calculateBMI()">Calculate BMI</button>
 
-    <h2 id="result"></h2>
-    <p id="category"></p>
+     <h2 id="result"></h2>
+     <p id="category"></p>
 
-    <canvas id="bmiChart" width="400" height="200"></canvas>
-
+     <canvas id="bmiChart" width="400" height="200"></canvas>
+    </div>
     <script>
         function calculateBMI() {
             const weight = parseFloat(document.getElementById('weight').value);
