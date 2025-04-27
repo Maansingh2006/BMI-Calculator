@@ -61,30 +61,12 @@ const config = {
                 }
             }
         },
+        
        
 
 
-    plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const index = context.dataIndex;
-                                if (index === 0) return 'BMI < 18.5';
-                                if (index === 1) return '18.5 - 24.9';
-                                if (index === 2) return '25 - 29.9';
-                                if (index === 3) return 'BMI ≥ 30';
-                                return '';
-                            }
-                        }
-                    },
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        };
-   bmiChart = new Chart(ctx, config);
-    }
+    
+  
     
     // Simplified updateChartMarker without annotations
     function updateChartMarker(bmi) {
