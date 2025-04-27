@@ -324,3 +324,10 @@ body {
     font-weight: 500;
     transition: background-color 0.2s;
 }
+.bmi-category {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px var(--accent-color);
+    transition: text-shadow 0.3s ease;
+}
