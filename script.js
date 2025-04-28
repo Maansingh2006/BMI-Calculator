@@ -9,6 +9,15 @@
     const bmiValueElement = document.getElementById('bmi-value');
     const bmiCategoryElement = document.getElementById('bmi-category');
     const bmiDescriptionElement = document.getElementById('bmi-description');
+        // BMI categories (as in previous message)
+    const bmiCategories = [
+     {
+         range: [0, 18.5],
+         name: 'Underweight',
+         color: '#5dade2',
+         icon: '🦴',
+         description: 'You may benefit from gaining a bit of weight for better energy and health.'
+      },
 
     
     
