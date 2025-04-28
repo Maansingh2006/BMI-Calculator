@@ -332,9 +332,21 @@ body {
     transition: text-shadow 0.3s ease;
 }
 .
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+html, body {
+    height: 100%;
+    line-height: 1.5;
+    background-color: #f9f9f9; /* light background for a clean look */
+    color: #333; /* better default text color */
 }
