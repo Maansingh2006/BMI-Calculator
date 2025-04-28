@@ -11,20 +11,35 @@
     const bmiDescriptionElement = document.getElementById('bmi-description');
         // BMI categories (as in previous message)
     const bmiCategories = [
-      {
+    {
          range: [0, 18.5],
          name: 'Underweight',
          color: '#5dade2',
          icon: '🦴',
          description: 'You may benefit from gaining a bit of weight for better energy and health.'
       },
-     {
+    {
         range: [18.5, 25],
         name: 'Normal',
         color: '#27ae60',
         icon: '💪',
         description: 'You’re in a healthy weight range — keep up the good habits!'
      },
+    {
+        range: [25, 30],
+        name: 'Overweight',
+        color: '#f39c12',
+        icon: '⚖️',
+        description: 'Consider small lifestyle changes to get back to a healthier range.'
+     },
+     {
+        range: [30, Infinity],
+        name: 'Obese',
+        color: '#e74c3c',
+        icon: '❤️‍🔥',
+        description: 'Adopting healthier habits could greatly benefit your well-being.'
+    }
+];    
 
 
     
