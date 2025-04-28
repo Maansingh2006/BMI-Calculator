@@ -331,14 +331,7 @@ body {
     text-shadow: 0 0 5px var(--accent-color);
     transition: text-shadow 0.3s ease;
 }
-.input-with-unit select {
-    width: 70px;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: var(--border-radius);
-    background-color: white;
-    font-size: 1rem;
-}
+.
 * {
     margin: 0;
     padding: 0;
