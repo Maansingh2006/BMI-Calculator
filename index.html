@@ -107,17 +107,42 @@
 
 
      <canvas id="bmiChart" width="400" height="200"></canvas>
-    </div>
-    <script>
-        function calculateBMI() {
-            const weight = parseFloat(document.getElementById('weight').value);
-            const height = parseFloat(document.getElementById('height').value);
-            const resultEl = document.getElementById('result');
-            const categoryEl = document.getElementById('category');
+</div>
 
-            if (weight > 0 && height > 0) {
-                const bmi = weight / (height * height);
-                resultEl.textContent = `Your BMI is ${bmi.toFixed(2)}`;
+<script>
+    function calculateBMI() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value);
+
+        const resultEl = document.getElementById('result');
+        const categoryEl = document.getElementById('category');
+
+        if (weight > 0 && height > 0) {
+            const bmi = weight / (height * height);
+
+            resultEl.textContent = `Your BMI is ${bmi.toFixed(2)}`;
+
+            let category = '';
+
+            if (bmi < 18.5) {
+                category = 'Underweight';
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                category = 'Normal weight';
+            } else if (bmi >= 25 && bmi < 29.9) {
+                category = 'Overweight';
+            } else {
+                category = 'Obese';
+            }
+
+            categoryEl.textContent = `Category: ${category}`;
+
+            // Optional: Add chart update logic here
+        } else {
+            resultEl.textContent = 'Please enter valid weight and height.';
+            categoryEl.textContent = '';
+        }
+    }
+</script>
 
                 let category = '';
                 if (bmi < 18.5) {
