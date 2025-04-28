@@ -10,7 +10,7 @@
     const bmiCategoryElement = document.getElementById('bmi-category');
     const bmiDescriptionElement = document.getElementById('bmi-description');
         // BMI categories (as in previous message)
-    const bmiCategories = [
+    const bmiCategories = [    
     {
          range: [0, 18.5],
          name: 'Underweight',
