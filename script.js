@@ -39,7 +39,53 @@
         icon: '❤️‍🔥',
         description: 'Adopting healthier habits could greatly benefit your well-being.'
     }
-];    
+];
+/ Utility to determine BMI category
+function getBmiCategory(bmi) {
+    return bmiCategories.find(category =>
+        bmi >= category.range[0] && bmi < category.range[1]
+    );
+}
+
+// Calculate BMI function
+function calculateBMI(weight, height, weightUnit = 'kg', heightUnit = 'm') {
+    // Input validation
+    if (!weight || !height || weight <= 0 || height <= 0) {
+        return { error: 'Please provide valid weight and height values.' };
+    }
+
+    // Convert weight to kilograms if needed
+    weight = (weightUnit === 'lb') ? weight * 0.453592 : weight;
+
+    // Convert height to meters if needed
+    if (heightUnit === 'cm') {
+        height = height / 100;
+    } else if (heightUnit === 'ft') {
+        height = height * 0.3048;
+    } else if (heightUnit === 'in') {
+        height = height * 0.0254;
+    }
+
+    // Calculate BMI
+    const bmi = weight / (height * height);
+    const roundedBMI = parseFloat(bmi.toFixed(1));
+
+    // Get category
+    const category = getBmiCategory(roundedBMI);
+
+    return {
+        bmi: roundedBMI,
+        category: category.name,
+        color: category.color,
+        icon: category.icon,
+        description: category.description
+    };
+}
+
+// Example usage
+const result = calculateBMI(160, 5.6, 'lb', 'ft');
+console.log(result);
+        
 
 
     
