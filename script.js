@@ -1,257 +1,393 @@
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // DOM Elements
     const weightInput = document.getElementById('weight');
     const heightInput = document.getElementById('height');
+    const inchesInput = document.getElementById('inches');
+    const ageInput = document.getElementById('age');
+    const genderSelect = document.getElementById('gender');
     const weightUnit = document.getElementById('weight-unit');
     const heightUnit = document.getElementById('height-unit');
+    const inchesField = document.getElementById('inches-field');
     const calculateBtn = document.getElementById('calculate-btn');
+    const resetBtn = document.getElementById('reset-btn');
     const resultContainer = document.getElementById('result-container');
     const bmiValueElement = document.getElementById('bmi-value');
     const bmiCategoryElement = document.getElementById('bmi-category');
     const bmiDescriptionElement = document.getElementById('bmi-description');
-        // BMI categories (as in previous message)
-    const bmiCategories = [    
-    {
-         range: [0, 18.5],
-         name: 'Underweight',
-         color: '#5dade2',
-         icon: '🦴',
-         description: 'You may benefit from gaining a bit of weight for better energy and health.'
-      },
-    {
-        range: [18.5, 25],
-        name: 'Normal',
-        color: '#27ae60',
-        icon: '💪',
-        description: 'You’re in a healthy weight range — keep up the good habits!'
-     },
-    {
-        range: [25, 30],
-        name: 'Overweight',
-        color: '#f39c12',
-        icon: '⚖️',
-        description: 'Consider small lifestyle changes to get back to a healthier range.'
-     },
-     {
-        range: [30, Infinity],
-        name: 'Obese',
-        color: '#e74c3c',
-        icon: '❤️‍🔥',
-        description: 'Adopting healthier habits could greatly benefit your well-being.'
-    }
-];
-/ Utility to determine BMI category
-function getBmiCategory(bmi) {
-    return bmiCategories.find(category =>
-        bmi >= category.range[0] && bmi < category.range[1]
-    );
-}
+    const bmiTipElement = document.getElementById('bmi-tip');
+    const alertMessage = document.getElementById('alert-message');
+    const themeToggle = document.getElementById('theme-toggle');
+    const bmiHistoryList = document.getElementById('bmi-history');
 
-// Calculate BMI function
-function calculateBMI(weight, height, weightUnit = 'kg', heightUnit = 'm') {
-    // Input validation
-    if (!weight || !height || weight <= 0 || height <= 0) {
-        return { error: 'Please provide valid weight and height values.' };
-    }
+    // BMI Categories
+    const bmiCategories = [
+        {
+            range: [0, 18.5],
+            name: 'Underweight',
+            class: 'underweight',
+            color: '#5dade2',
+            icon: '🦴',
+            description: 'You may benefit from gaining a bit of weight for better energy and health.',
+            tip: 'Focus on nutrient-dense foods and consider consulting with a nutritionist.'
+        },
+        {
+            range: [18.5, 25],
+            name: 'Normal',
+            class: 'normal',
+            color: '#27ae60',
+            icon: '💪',
+            description: 'You're in a healthy weight range — keep up the good habits!',
+            tip: 'Maintain a balanced diet and regular physical activity.'
+        },
+        {
+            range: [25, 30],
+            name: 'Overweight',
+            class: 'overweight',
+            color: '#f39c12',
+            icon: '⚖️',
+            description: 'Consider small lifestyle changes to get back to a healthier range.',
+            tip: 'Incorporate more physical activity and mindful eating habits.'
+        },
+        {
+            range: [30, Infinity],
+            name: 'Obese',
+            class: 'obese',
+            color: '#e74c3c',
+            icon: '❤️‍🔥',
+            description: 'Adopting healthier habits could greatly benefit your well-being.',
+            tip: 'Consider consulting with healthcare professionals for a personalized plan.'
+        }
+    ];
 
-    // Convert weight to kilograms if needed
-    weight = (weightUnit === 'lb') ? weight * 0.453592 : weight;
+    // Global Chart Variable
+    let bmiChart;
+    
+    // BMI History
+    let bmiHistory = JSON.parse(localStorage.getItem('bmiHistory')) || [];
 
-    // Convert height to meters if needed
-    if (heightUnit === 'cm') {
-        height = height / 100;
-    } else if (heightUnit === 'ft') {
-        height = height * 0.3048;
-    } else if (heightUnit === 'in') {
-        height = height * 0.0254;
-    }
+    // Initialize
+    init();
 
-    // Calculate BMI
-    const bmi = weight / (height * height);
-    const roundedBMI = parseFloat(bmi.toFixed(1));
-
-    // Get category
-    const category = getBmiCategory(roundedBMI);
-
-    return {
-        bmi: roundedBMI,
-        category: category.name,
-        color: category.color,
-        icon: category.icon,
-        description: category.description
-    };
-}
-
-// Example usage
-const result = calculateBMI(160, 5.6, 'lb', 'ft');
-console.log(result);
+    function init() {
+        // Event Listeners
+        heightUnit.addEventListener('change', toggleInchesField);
+        calculateBtn.addEventListener('click', handleCalculate);
+        resetBtn.addEventListener('click', resetForm);
+        themeToggle.addEventListener('click', toggleTheme);
         
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️ Toggle Theme';
+        }
+        
+        // Render BMI history
+        renderBMIHistory();
+    }
 
+    function toggleInchesField() {
+        if (heightUnit.value === 'ft-in') {
+            inchesField.classList.remove('hidden');
+        } else {
+            inchesField.classList.add('hidden');
+        }
+    }
 
-    
-    
-    // Initialize the chart
+    function toggleTheme() {
+        const isDarkMode = document.body.classList.toggle('dark-mode');
+        themeToggle.textContent = isDarkMode ? '☀️ Toggle Theme' : '🌙 Toggle Theme';
+        localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        
+        // Update chart if it exists
+        if (bmiChart) {
+            const textColor = isDarkMode ? '#ecf0f1' : '#333';
+            bmiChart.options.scales.x.ticks.color = textColor;
+            bmiChart.options.scales.y.ticks.color = textColor;
+            bmiChart.options.scales.x.title.color = textColor;
+            bmiChart.options.scales.y.title.color = textColor;
+            bmiChart.update();
+        }
+    }
+
+    // Get BMI Category
+    function getBMICategory(bmi) {
+        return bmiCategories.find(category => bmi >= category.range[0] && bmi < category.range[1]) || bmiCategories[bmiCategories.length - 1];
+    }
+
+    // Calculate BMI Function
+    function calculateBMI() {
+        let weight = parseFloat(weightInput.value);
+        let height = parseFloat(heightInput.value);
+        
+        // Validation
+        if (!weight || !height || weight <= 0 || height <= 0) {
+            showAlert('Please provide valid weight and height values.');
+            return null;
+        }
+
+        // Convert units
+        if (weightUnit.value === 'lb') {
+            weight *= 0.453592; // Convert pounds to kg
+        }
+        
+        if (heightUnit.value === 'cm') {
+            height /= 100; // Convert cm to m
+        } else if (heightUnit.value === 'ft') {
+            height *= 0.3048; // Convert feet to m
+        } else if (heightUnit.value === 'ft-in') {
+            const inches = parseFloat(inchesInput.value) || 0;
+            height = (height * 0.3048) + (inches * 0.0254); // Convert feet and inches to m
+        }
+
+        // Final check for valid height after conversion
+        if (height <= 0) {
+            showAlert('Please provide a valid height value.');
+            return null;
+        }
+
+        const bmi = weight / (height * height);
+        const roundedBMI = parseFloat(bmi.toFixed(1));
+        const category = getBMICategory(roundedBMI);
+
+        return {
+            bmi: roundedBMI,
+            category: category.name,
+            class: category.class,
+            color: category.color,
+            icon: category.icon,
+            description: category.description,
+            tip: category.tip,
+            date: new Date().toISOString(),
+            weight: weight,
+            height: height,
+            age: ageInput.value || 'N/A',
+            gender: genderSelect.value || 'N/A'
+        };
+    }
+
+    // Show Alert
+    function showAlert(message, type = 'error') {
+        alertMessage.textContent = message;
+        alertMessage.className = `alert ${type === 'error' ? 'danger' : 'success'}`;
+        alertMessage.classList.remove('hidden');
+        
+        // Hide after 3 seconds
+        setTimeout(() => {
+            alertMessage.classList.add('hidden');
+        }, 3000);
+    }
+
+    // Initialize the Chart
     function initChart() {
         const ctx = document.getElementById('bmi-chart').getContext('2d');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        const textColor = isDarkMode ? '#ecf0f1' : '#333';
         
-        // Data for the chart
         const data = {
             labels: ['Underweight', 'Normal', 'Overweight', 'Obese'],
             datasets: [{
                 label: 'BMI Categories',
-                data: [18.5, 6.5, 5, 10], // Representing the width of each category
-                backgroundColor: ['#4baae3', '#2ecc71', '#f1c40f', '#e74c3c'],
+                data: [18.5, 6.5, 5, 10], // Width of ranges
+                backgroundColor: ['#5dade2', '#27ae60', '#f39c12', '#e74c3c'],
                 borderWidth: 0
-            }]
-        };
-        // Chart configuration
-const config = {
-    type: 'bar',
-    data,
-    options: {
-        indexAxis: 'y',
-        scales: {
-            x: {
-                stacked: true,
-                beginAtZero: true,
-                max: 40,
-                title: {
-                    display: true,
-                    text: 'BMI Range'
-                }
-            },
-            y: {
-                grid: {
-                    display: false
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 40,
+                        ticks: { color: textColor },
+                        title: {
+                            display: true,
+                            text: 'BMI Range',
+                            color: textColor
+                        }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { color: textColor },
+                        title: {
+                            display: true,
+                            text: 'Category',
+                            color: textColor
+                        }
+                    }
                 },
-                title: {
-                    display: true,
-                    text: 'Category'
-                }
-            }
-        },
-         plugins: {
-            tooltip: {
-                callbacks: {
-                    label: ({ dataIndex }) => {
-                        const labels = [
-                            'BMI < 18.5',
-                            '18.5 - 24.9',
-                            '25 - 29.9',
-                            'BMI ≥ 30'
-                        ];
-                        return labels[dataIndex] || '';
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: ({ dataIndex }) => {
+                                const labels = [
+                                    'BMI < 18.5',
+                                    '18.5 - 24.9',
+                                    '25 - 29.9',
+                                    'BMI ≥ 30'
+                                ];
+                                return labels[dataIndex] || '';
+                            }
+                        }
+                    },
+                    legend: {
+                        display: false
                     }
                 }
-            },
-            legend: {
-                display: false
             }
-        }
-    }
-};
+        };
 
-const bmiChart = new Chart(ctx, config);
-// Simplified updateChartMarker without annotations
+        bmiChart = new Chart(ctx, config);
+    }
+
+    // Update Chart Marker
     function updateChartMarker(bmi) {
         if (!bmiChart) return;
-        
-        // Instead of using annotations, we'll add a text on the chart
-        const category = getBMICategory(bmi);
-        const ctx = bmiChart.ctx;
-        const chartArea = bmiChart.chartArea;
-        
-        // Draw a simple vertical line for the BMI position
-        const xPos = bmiChart.scales.x.getPixelForValue(bmi);
-        
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(xPos, chartArea.top);
-        ctx.lineTo(xPos, chartArea.bottom);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = 'black';
-        ctx.stroke();
-         // Add text label
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
-        ctx.fillStyle = 'black';
-        ctx.font = 'bold 12px Arial';
-        ctx.fillText('Your BMI: ' + bmi.toFixed(1), xPos, chartArea.top - 20);
-        ctx.restore();
-    }
-    // Calculate BMI
-        
-function calculateBMI(weight, height, weightUnit, heightUnit) {
-    // Convert weight to kg and height to meters if needed
-    weight = (weightUnit === 'lb') ? weight * 0.453592 : weight; // lb to kg
-    height = (heightUnit === 'cm') ? height / 100 :
-             (heightUnit === 'ft') ? height * 0.3048 : height;   // cm/ft to m
-    
-    // BMI formula: weight (kg) / (height (m) * height (m))
-    return weight / (height * height);
-}
 
-   
-         // BMI formula: weight (kg) / (height (m) * height (m))
-        return weight / (height * height);
-    }
-// BMI formula: weight (kg) / (height (m) * height (m))
-        return weight / (height * height);
-    }
-    // Get BMI category
-    function getBMICategory(bmi) {
-        for (const category of bmiCategories) {
-            if (bmi >= category.range[0] && bmi < category.range[1]) {
-                return category;
-            }
-        }
-        return bmiCategories[bmiCategories.length - 1]; // Default to last category if out of range
-    } 
-// Display results
-    function displayResults(bmi) {
-        const category = getBMICategory(bmi);
+        // Apply annotation
+        const xScale = bmiChart.scales.x;
+        const chartWidth = bmiChart.width;
+        const chartHeight = bmiChart.height;
         
-        // Display BMI value
-        bmiValueElement.textContent = bmi.toFixed(1);
+        // Get the value position for the user's BMI
+        const xPos = xScale.getPixelForValue(bmi);
         
-        // Display category
-        bmiCategoryElement.textContent = category.name;
-        bmiCategoryElement.className = 'bmi-category ' + category.name.toLowerCase();
+        // Draw a vertical line and label on the chart
+        const ctx = bmiChart.ctx;
+        ctx.save();
         
-        // Display description
-        bmiDescriptionElement.textContent = category.description;
+        // Draw vertical line
+        ctx.beginPath();
+        ctx.setLineDash([5, 5]);
+        ctx.moveTo(xPos, bmiChart.chartArea.top);
+        ctx.lineTo(xPos, bmiChart.chartArea.bottom);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#000';
+        ctx.stroke();
         
-        // Show results
+        // Draw label
+        ctx.fillStyle = '#000';
+        ctx.font = 'bold 12px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(`Your BMI: ${bmi}`, xPos, bmiChart.chartArea.top - 10);
+        
+        ctx.restore();
+        
+        // Update the chart
+        bmiChart.update();
+    }
+
+    // Handle Calculate Button Click
+    function handleCalculate() {
+        // Calculate BMI
+        const result = calculateBMI();
+        
+        if (!result) return; // Error occurred
+        
+        // Save to history
+        saveToHistory(result);
+        
+        // Display results
+        displayResults(result);
+    }
+
+    // Display Results
+    function displayResults(result) {
+        // Update DOM
+        bmiValueElement.textContent = result.bmi.toFixed(1);
+        bmiCategoryElement.textContent = `${result.icon} ${result.category}`;
+        
+        // Remove any previous category classes
+        bmiCategoryElement.className = 'bmi-category';
+        // Add the appropriate class
+        bmiCategoryElement.classList.add(result.class);
+        
+        bmiDescriptionElement.textContent = result.description;
+        bmiTipElement.textContent = result.tip;
+        
+        // Show result container
         resultContainer.classList.remove('hidden');
         
         // Initialize or update chart
         if (!bmiChart) {
             initChart();
         }
-
-         // Add marker to chart
-        updateChartMarker(bmi);
-    }
-    
-    // Event listener for the calculate button
-    calculateBtn.addEventListener('click', function() {
-        const weight = parseFloat(weightInput.value);
-        const height = parseFloat(heightInput.value);
         
-        // Validate inputs
-        if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
-            alert('Please enter valid weight and height values.');
+        // Update chart marker with the BMI result
+        updateChartMarker(result.bmi);
+    }
+
+    // Save to BMI History
+    function saveToHistory(result) {
+        // Create a simplified history entry
+        const historyEntry = {
+            date: result.date,
+            bmi: result.bmi,
+            category: result.category,
+            weight: result.weight,
+            height: result.height
+        };
+        
+        // Add to history array
+        bmiHistory.unshift(historyEntry);
+        
+        // Keep only the last 5 entries
+        if (bmiHistory.length > 5) {
+            bmiHistory = bmiHistory.slice(0, 5);
+        }
+        
+        // Save to localStorage
+        localStorage.setItem('bmiHistory', JSON.stringify(bmiHistory));
+        
+        // Update the UI
+        renderBMIHistory();
+    }
+
+    // Render BMI History
+    function renderBMIHistory() {
+        // Clear the list
+        bmiHistoryList.innerHTML = '';
+        
+        if (bmiHistory.length === 0) {
+            const li = document.createElement('li');
+            li.textContent = 'No history available yet.';
+            bmiHistoryList.appendChild(li);
             return;
         }
-        const bmi = calculateBMI(
-            weight,
-            height,
-            weightUnit.value,
-            heightUnit.value
-        );
         
-        displayResults(bmi);
-    });
+        // Add each history item
+        bmiHistory.forEach(entry => {
+            const li = document.createElement('li');
+            
+            const date = new Date(entry.date);
+            const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+            
+            const category = getBMICategory(entry.bmi);
+            
+            li.innerHTML = `
+                <span>${formattedDate}</span>
+                <span class="${category.class}">${entry.bmi.toFixed(1)} (${category.name})</span>
+            `;
+            
+            bmiHistoryList.appendChild(li);
+        });
+    }
+
+    // Reset Form
+    function resetForm() {
+        weightInput.value = '';
+        heightInput.value = '';
+        inchesInput.value = '';
+        ageInput.value = '';
+        genderSelect.selectedIndex = 0;
+        resultContainer.classList.add('hidden');
+    }
 });
 
        
