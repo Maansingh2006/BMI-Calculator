@@ -6,197 +6,8 @@
     <title>BMI Calculator</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #acb6e5);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 100%;
-            max-width: 500px;
-        }
-        h1 {
-            margin-bottom: 25px;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            text-align: left;
-            margin-top: 15px;
-            font-weight: 600;
-            color: #555;
-        }
-        input[type="number"] {
-            width: 100%;
-            padding: 10px 15px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            margin-top: 5px;
-        }
-         button {
-            margin-top: 25px;
-            padding: 12px 30px;
-            background: linear-gradient(90deg, #56ab2f, #a8e063);
-            color: white;
-            border: none;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-        button:hover {
-            background: linear-gradient(90deg, #3d8b2e, #8ed46e);
-        }
-
-        #result {
-            margin-top: 25px;
-            font-size: 22px;
-            font-weight: bold;
-            color: #222;
-        }
-        #category {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        canvas {
-            background-color: #f8f8f8;
-            border-radius: 12px;
-            padding: 10px;  
-            margin-top: 20px;
-        }
-    </style>
-        
-
 </head>
 <body>
-    <div class="container">
-    <h1>BMI Calculator</h1>
-
-    <label for="weight">Weight (kg):</label>
-    <input type="number" id="weight" /><br /><br />
-
-    <label for="height">Height (m):</label>
-    <input type="number" id="height" step="0.01" /><br /><br />
-
-    <button onclick="calculateBMI()">Calculate BMI</button>
-
-    <br /><br />
-    <h2 id="result"></h2>
-    <p id="category"></p>
-</div>
-
-
-     <canvas id="bmiChart" width="400" height="200"></canvas>
-</div>
-
-<script>
-    function calculateBMI() {
-        const weight = parseFloat(document.getElementById('weight').value);
-        const height = parseFloat(document.getElementById('height').value);
-
-        const resultEl = document.getElementById('result');
-        const categoryEl = document.getElementById('category');
-
-        if (weight > 0 && height > 0) {  
-            const bmi = weight / (height * height);
-
-            resultEl.textContent = `Your BMI is ${bmi.toFixed(2)}`;
-
-            let category = '';
-
-            if (bmi < 18.5) {
-                category = 'Underweight';
-            } else if (bmi >= 18.5 && bmi < 24.9) {
-                category = 'Normal weight';
-            } else if (bmi >= 25 && bmi < 29.9) {
-                category = 'Overweight';
-            } else {
-                category = 'Obese';
-            }
-
-            categoryEl.textContent = `Category: ${category}`;
-
-            // Optional: Add chart update logic here
-        } else {
-            resultEl.textContent = 'Please enter valid weight and height.';
-            categoryEl.textContent = '';
-        }
-    }
-</script>
-
-                let category = '';
-                if (bmi < 18.5) {
-                    category = 'Underweight';
-                } else if (bmi < 24.9) {
-                    category = 'Normal weight';
-                } else if (bmi < 29.9) {
-                    category = 'Overweight';
-                } else {
-                    category = 'Obese';
-                }
-
-                categoryEl.textContent = `Category: ${category}`;
-
-                renderChart(bmi);
-            } else {
-                resultEl.textContent = 'Please enter valid values.';
-                categoryEl.textContent = '';
-            }
-        }
-
-        function renderChart(bmi) {
-            const ctx = document.getElementById('bmiChart').getContext('2d');
-            if (window.bmiChart) {
-                window.bmiChart.destroy(); // Destroy existing chart to update
-            }
-            window.bmiChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Underweight', 'Normal', 'Overweight', 'Obese'],
-                    datasets: [{
-                        label: 'BMI Range',
-                        data: [18.5, 24.9, 29.9, 35],
-                        backgroundColor: ['#00BFFF', '#3CB371', '#FFD700', '#FF4500']
-                    }, {
-                        label: 'Your BMI',
-                        data: [bmi, 0, 0, 0],
-                        backgroundColor: ['#000000']
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 40
-                        }
-                    }
-                }
-            });
-        }
-    </script>
-</body>
-</html>
-
     <div class="container" role="main">
         <!-- Theme Toggle -->
         <button id="theme-toggle" aria-label="Toggle dark mode" class="theme-toggle">🌙 Toggle Theme</button>
@@ -207,43 +18,32 @@
 
         <div class="calculator">
             <div class="input-group">
-
-               <!-- Weight Input -->
-<div class="input-field">
-    <label for="weight">Weight</label>
-    <div class="input-with-unit">
-        <input type="number" id="weight" placeholder="e.g., 70" aria-label="Weight">
-        <select id="weight-unit" aria-label="Weight unit">
-            <option value="kg">kg</option>
-            <option value="lb">lb</option>
-        </select>
-    </div>
-    <small class="conversion-note" id="weight-conversion-note"></small>
-</div>
-
+                <!-- Weight Input -->
+                <div class="input-field">
+                    <label for="weight">Weight</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="weight" placeholder="e.g., 70" aria-label="Weight">
+                        <select id="weight-unit" aria-label="Weight unit">
+                            <option value="kg">kg</option>
+                            <option value="lb">lb</option>
+                        </select>
+                    </div>
+                    <small class="conversion-note" id="weight-conversion-note"></small>
                 </div>
 
-               <!-- Height Input -->
-<div class="input-field">
-    <label for="height">Height</label>
-    <div class="input-with-unit">
-        <input type="number" id="height" placeholder="e.g., 175" aria-label="Height">
-        <select id="height-unit" aria-label="Height unit">
-            <option value="cm">cm</option>
-            <option value="m">m</option>
-            <option value="ft">ft</option>
-            <option value="ft-in">ft + in</option>
-        </select>
-    </div>
-</div>
-
-<!-- Inches Input (Shown only if ft + in is selected) -->
-<div class="input-field hidden" id="inches-field">
-    <label for="inches">Inches</label>
-    <input type="number" id="inches" placeholder="e.g., 5" aria-label="Inches">
-</div>
-
-<small class="conversion-note" id="height-note"></small>
+                <!-- Height Input -->
+                <div class="input-field">
+                    <label for="height">Height</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="height" placeholder="e.g., 175" aria-label="Height">
+                        <select id="height-unit" aria-label="Height unit">
+                            <option value="cm">cm</option>
+                            <option value="m">m</option>
+                            <option value="ft">ft</option>
+                            <option value="ft-in">ft + in</option>
+                        </select>
+                    </div>
+                    <small class="conversion-note" id="height-note"></small>
                 </div>
 
                 <!-- Optional Inches Input -->
@@ -269,24 +69,21 @@
                     </select>
                 </div>
 
-              <!-- Buttons -->
-<div class="button-group">
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button id="calculate-btn" class="btn primary-btn">
+                        Calculate BMI
+                    </button>
+                    <button id="reset-btn" class="btn secondary-btn">
+                        Reset
+                    </button>
+                </div>
 
-    <button id="calculate-btn" class="btn primary-btn">
-        Calculate BMI
-    </button>
-
-    <button id="reset-btn" class="btn secondary-btn">
-        Reset
-    </button>
-
-</div>
-
-<!-- Alert placeholder -->
-<div id="alert-message" role="alert" class="alert hidden" aria-live="assertive">
-    <!-- Alert messages will appear here -->
-</div>
-
+                <!-- Alert placeholder -->
+                <div id="alert-message" role="alert" class="alert hidden" aria-live="assertive">
+                    <!-- Alert messages will appear here -->
+                </div>
+            </div>
 
             <!-- Results Section -->
             <div class="result-container hidden" id="result-container">
@@ -303,13 +100,11 @@
 
                 <!-- Chart Section -->
                 <div class="chart-wrapper">
-                   <h2>Your BMI Progress</h2>
-                   <div class="chart-container">
-                      <canvas id="bmi-chart" aria-label="BMI chart"></canvas>
-                   </div>
+                    <h2>Your BMI Progress</h2>
+                    <div class="chart-container">
+                        <canvas id="bmi-chart" aria-label="BMI chart"></canvas>
+                    </div>
                 </div>
-
-              
 
                 <!-- History Section -->
                 <div class="history-section">
@@ -323,9 +118,8 @@
 
         <!-- Footer -->
         <footer class="footer">
-              <p>&copy; 2025 <strong>BMI Calculator</strong> | Built with <span class="heart">❤️</span> by You</p>
+            <p>&copy; 2025 <strong>BMI Calculator</strong> | Built with <span class="heart">❤️</span> by You</p>
         </footer>
-
     </div>
 
     <script src="script.js"></script>
