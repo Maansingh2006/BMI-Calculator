@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             class: 'normal',
             color: '#27ae60',
             icon: '💪',
-            description: 'You're in a healthy weight range — keep up the good habits!',
+            description: "You're in a healthy weight range - keep up the good habits!",
             tip: 'Maintain a balanced diet and regular physical activity.'
         },
         {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Global Chart Variable
     let bmiChart;
-    
+
     // BMI History
     let bmiHistory = JSON.parse(localStorage.getItem('bmiHistory')) || [];
 
@@ -69,18 +69,17 @@ document.addEventListener('DOMContentLoaded', function () {
     init();
 
     function init() {
-        // Event Listeners
         heightUnit.addEventListener('change', toggleInchesField);
         calculateBtn.addEventListener('click', handleCalculate);
         resetBtn.addEventListener('click', resetForm);
         themeToggle.addEventListener('click', toggleTheme);
-        
+
         // Check for saved theme preference
         if (localStorage.getItem('darkMode') === 'enabled') {
             document.body.classList.add('dark-mode');
             themeToggle.textContent = '☀️ Toggle Theme';
         }
-        
+
         // Render BMI history
         renderBMIHistory();
     }
@@ -97,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const isDarkMode = document.body.classList.toggle('dark-mode');
         themeToggle.textContent = isDarkMode ? '☀️ Toggle Theme' : '🌙 Toggle Theme';
         localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-        
+
         // Update chart if it exists
         if (bmiChart) {
             const textColor = isDarkMode ? '#ecf0f1' : '#333';
@@ -118,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function calculateBMI() {
         let weight = parseFloat(weightInput.value);
         let height = parseFloat(heightInput.value);
-        
+
         // Validation
         if (!weight || !height || weight <= 0 || height <= 0) {
             showAlert('Please provide valid weight and height values.');
@@ -129,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (weightUnit.value === 'lb') {
             weight *= 0.453592; // Convert pounds to kg
         }
-        
+
         if (heightUnit.value === 'cm') {
             height /= 100; // Convert cm to m
         } else if (heightUnit.value === 'ft') {
@@ -170,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
         alertMessage.textContent = message;
         alertMessage.className = `alert ${type === 'error' ? 'danger' : 'success'}`;
         alertMessage.classList.remove('hidden');
-        
+
         // Hide after 3 seconds
         setTimeout(() => {
             alertMessage.classList.add('hidden');
@@ -182,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const ctx = document.getElementById('bmi-chart').getContext('2d');
         const isDarkMode = document.body.classList.contains('dark-mode');
         const textColor = isDarkMode ? '#ecf0f1' : '#333';
-        
+
         const data = {
             labels: ['Underweight', 'Normal', 'Overweight', 'Obese'],
             datasets: [{
@@ -252,16 +251,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Apply annotation
         const xScale = bmiChart.scales.x;
-        const chartWidth = bmiChart.width;
-        const chartHeight = bmiChart.height;
-        
-        // Get the value position for the user's BMI
         const xPos = xScale.getPixelForValue(bmi);
-        
+
         // Draw a vertical line and label on the chart
         const ctx = bmiChart.ctx;
         ctx.save();
-        
+
         // Draw vertical line
         ctx.beginPath();
         ctx.setLineDash([5, 5]);
@@ -270,15 +265,15 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#000';
         ctx.stroke();
-        
+
         // Draw label
         ctx.fillStyle = '#000';
         ctx.font = 'bold 12px Arial';
         ctx.textAlign = 'center';
         ctx.fillText(`Your BMI: ${bmi}`, xPos, bmiChart.chartArea.top - 10);
-        
+
         ctx.restore();
-        
+
         // Update the chart
         bmiChart.update();
     }
@@ -287,12 +282,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function handleCalculate() {
         // Calculate BMI
         const result = calculateBMI();
-        
+
         if (!result) return; // Error occurred
-        
+
         // Save to history
         saveToHistory(result);
-        
+
         // Display results
         displayResults(result);
     }
@@ -302,23 +297,23 @@ document.addEventListener('DOMContentLoaded', function () {
         // Update DOM
         bmiValueElement.textContent = result.bmi.toFixed(1);
         bmiCategoryElement.textContent = `${result.icon} ${result.category}`;
-        
+
         // Remove any previous category classes
         bmiCategoryElement.className = 'bmi-category';
         // Add the appropriate class
         bmiCategoryElement.classList.add(result.class);
-        
+
         bmiDescriptionElement.textContent = result.description;
         bmiTipElement.textContent = result.tip;
-        
+
         // Show result container
         resultContainer.classList.remove('hidden');
-        
+
         // Initialize or update chart
         if (!bmiChart) {
             initChart();
         }
-        
+
         // Update chart marker with the BMI result
         updateChartMarker(result.bmi);
     }
@@ -333,18 +328,18 @@ document.addEventListener('DOMContentLoaded', function () {
             weight: result.weight,
             height: result.height
         };
-        
+
         // Add to history array
         bmiHistory.unshift(historyEntry);
-        
+
         // Keep only the last 5 entries
         if (bmiHistory.length > 5) {
             bmiHistory = bmiHistory.slice(0, 5);
         }
-        
+
         // Save to localStorage
         localStorage.setItem('bmiHistory', JSON.stringify(bmiHistory));
-        
+
         // Update the UI
         renderBMIHistory();
     }
@@ -353,28 +348,27 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderBMIHistory() {
         // Clear the list
         bmiHistoryList.innerHTML = '';
-        
+
         if (bmiHistory.length === 0) {
             const li = document.createElement('li');
             li.textContent = 'No history available yet.';
             bmiHistoryList.appendChild(li);
             return;
         }
-        
+
         // Add each history item
         bmiHistory.forEach(entry => {
             const li = document.createElement('li');
-            
+
             const date = new Date(entry.date);
             const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-            
             const category = getBMICategory(entry.bmi);
-            
+
             li.innerHTML = `
                 <span>${formattedDate}</span>
                 <span class="${category.class}">${entry.bmi.toFixed(1)} (${category.name})</span>
             `;
-            
+
             bmiHistoryList.appendChild(li);
         });
     }
@@ -389,5 +383,3 @@ document.addEventListener('DOMContentLoaded', function () {
         resultContainer.classList.add('hidden');
     }
 });
-
-       
